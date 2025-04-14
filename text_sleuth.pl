@@ -3,7 +3,7 @@
 # TextSleuth v1.0
 # Written by Derek Pascarella (ateam)
 #
-# A brute-force search utility to identify non-standard text encoding formats. 
+# A brute-force search utility to identify non-standard text encoding formats.
 
 # Include necessary modules.
 use strict;
