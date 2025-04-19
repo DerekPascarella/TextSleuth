@@ -50,7 +50,7 @@ To uncover the custom character encoding format leveraged by the game, the user 
 
 Below is one such example, where `たアンドロイド『アーマロイド』を` contains 16 characters, five of which are not unique (i.e., they are repeated).
 
-![Screenshot](https://github.com/DerekPascarella/TextSleuth/blob/main/images/change_test.png?raw=true)
+![Screenshot](https://github.com/DerekPascarella/TextSleuth/blob/main/images/in-game_screenshot.png?raw=true)
 
 After identifying such a text chunk, the user must transcribe a pattern using any ASCII characters of their choice. For example, one can assign a given Japanese character to the letter `A`, or to the number `1`.
 
