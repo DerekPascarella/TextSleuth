@@ -72,7 +72,7 @@ For the initial attempt, the user assumes a two-byte format with no wildcards in
 
 As seen above, a match was found on the first attempt, and in a total of five seconds! TextSleuth is reporting that an array of bytes matching the defined search criteria pattern was found at offset `0x892` inside the file `SNRP`.
 
-Consider the matched byte array. It appears to be potentially valid, as a discernable format begins to take shape for a proposed custom text encoding format.
+Consider the matched byte array. It appears to be potentially valid, as a discernible format begins to take shape for a proposed custom text encoding format.
 
 ```
 14ed 1c0a 1c9c 1c43 1c6c 1c1a 1c43 0cbb 1c0a 0cda 1ceb 1c6c 1c1a 1c43 0cc3 1487
