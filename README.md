@@ -44,7 +44,7 @@ Optional:
 ## Example Scenario
 Consider the following example for the FM Towns game "Phobos".
 
-After some analysis of the game data, it was discovered that in-game dialogue text was not compressed, but definitely stored using a non-standard text encoding format (e.g., not Shift-JIS).
+After some analysis of the game data, it was discovered that in-game dialogue text was not compressed, but definitely stored using a non-standard text encoding format.
 
 To uncover the custom character encoding format leveraged by the game, the user finds a chunk of text containing a sufficient number of repeating characters. Since TextSleuth will perform a brute-force search, the user wants to eliminate as many false-positives as possible by identifying sequences of characters that are likely to be unique.
 
