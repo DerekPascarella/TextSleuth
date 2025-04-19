@@ -11,7 +11,7 @@ TextSleuth is currently at version [1.0](https://github.com/DerekPascarella/Text
     - Initial release.
 
 ## Benchmarks
-With support for multi-threading, TextSleuth can be scaled a desired. By default, it will consume one fewer thread than the total logical processor count of the host computer on which it's executed.
+With support for multi-threading, TextSleuth can be scaled as desired. By default, it will consume one fewer thread than the total logical processor count of the host computer on which it's executed.
 
 On an AMD Ryzen 5 4600H running at 3.0 GHz with six cores and 12 logical processors (threads), where TextSleuth is consuming 11 threads, approximately 20 MB of data can be searched per minute.
 
