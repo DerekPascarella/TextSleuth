@@ -7,7 +7,7 @@ It's primary target users are hackers and reverse-engineers developing video gam
 TextSleuth is currently at version [1.0](xxxx).
 
 ## Changelog
-- **Version 1.0 (2025-04-19)
+- **Version 1.0 (2025-04-19)**
     - Initial release.
  
 ## Usage
