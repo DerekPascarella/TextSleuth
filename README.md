@@ -4,12 +4,17 @@ TextSleuth is a brute-force search utility to identify non-standard text encodin
 It's primary target users are hackers and reverse-engineers developing video game translation patches, especially those considered "retro" where custom text encoding formats were often used (rather than standards like ASCII or Shift-JIS).
 
 ## Current Version
-TextSleuth is currently at version [1.0](xxxx).
+TextSleuth is currently at version [1.0](https://github.com/DerekPascarella/TextSleuth/releases/download/1.0/TextSleuth.v1.0.zip).
 
 ## Changelog
 - **Version 1.0 (2025-04-19)**
     - Initial release.
- 
+
+## Benchmarks
+With support for multi-threading, TextSleuth can be scaled a desired. By default, it will consume one fewer thread than the total logical processor count of the host computer on which it's executed.
+
+On an AMD Ryzen 5 4600H running at 3.0 GHz with six cores and 12 logical processors (threads), where TextSleuth is consuming 11 threads, approximately 20 MB of data can be searched per minute.
+
 ## Usage
 TextSleuth is a command-line utility to be invoked as follows.
 
@@ -65,7 +70,7 @@ For the initial attempt, the user assumes a two-byte format with no wildcards in
 
 ![Screenshot](https://github.com/DerekPascarella/TextSleuth/blob/main/images/terminal.png?raw=true)
 
-As seen above, a match was found on the first attempt! TextSleuth is reporting that an array of bytes matching the defined search criteria pattern was found at offset `0x892` inside the file `SNRP`.
+As seen above, a match was found on the first attempt, and in a total of five seconds! TextSleuth is reporting that an array of bytes matching the defined search criteria pattern was found at offset `0x892` inside the file `SNRP`.
 
 Consider the matched byte array. It appears to be potentially valid, as a discernable format begins to take shape for a proposed custom text encoding format.
 
