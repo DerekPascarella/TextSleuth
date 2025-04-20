@@ -85,7 +85,7 @@ Consider the matched byte array. It appears to be potentially valid, as a discer
 14ed 1c0a 1c9c 1c43 1c6c 1c1a 1c43 0cbb 1c0a 0cda 1ceb 1c6c 1c1a 1c43 0cc3 1487
 ```
 
-As an initial test, the user will repeat the first two-byte sequence (`14 ed`) a total of ten times to see if the change is reflected in the game itself.
+As an initial test, the user will repeat the first two-byte sequence (`0x14 0xed`) a total of ten times to see if the change is reflected in the game itself.
 
 As seen below, the first character in the text chunk, `た`, is indeed repeated ten times!
 
