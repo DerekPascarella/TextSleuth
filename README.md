@@ -93,7 +93,7 @@ As seen below, the first character in the text chunk, `た`, is indeed repeated 
 
 It's at this point that the user undergoes the process of mapping out the table of all characters supported by the game, after which text extraction and additional hacking efforts can take place.
 
-Note that should the initial scan failed to produce meaningful results, the user would attempt again with different options, such as a byte-length of one (instead of two). Additionally, wildcard options may be used.
+Note that should the initial scan fail to produce meaningful results, the user would attempt again with different options, such as a byte-length of one (instead of two). Additionally, wildcard options may be used.
 
 For example, one could imagine a scenario where the matched data from this example used `0x00` terminator bytes in between encoded characters, as shown below.
 
