@@ -92,3 +92,30 @@ As seen below, the first character in the text chunk, `た`, is indeed repeated 
 ![Screenshot](https://github.com/DerekPascarella/TextSleuth/blob/main/images/change_test.png?raw=true)
 
 It's at this point that the user undergoes the process of mapping out the table of all characters supported by the game, after which text extraction and additional hacking efforts can take place.
+
+Note that should the initial scan failed to produce meaningful results, the user would attempt again with different options, such as a byte-length of one (instead of two). Additionally, wildcard options may be used.
+
+For example, one could imagine a scenario where the matched data from this example used `0x00` terminator bytes in between encoded characters, as shown below.
+
+```
+14 ed 00 1c 0a 00 1c 9c 00 1c 43 00 1c 6c 00 1c
+1a 00 1c 43 00 0c bb 00 1c 0a 00 0c da 00 1c eb
+00 1c 6c 00 1c 1a 00 1c 43 00 0c c3 00 14 87 00
+```
+
+TextSleuth would fail to identify this byte array as a match unless the `--wildcard` option is used. See example command below.
+
+`text_sleuth.exe --length 2 --pattern phobos.txt --source inp\ --wildcard 1`
+
+Another example could include two wildcard bytes, where `00 01` ends character one, `00 02` ends characters two, and so on.
+
+```
+14 ed 00 01 1c 0a 00 02 1c 9c 00 03 1c 43 00 04
+1c 6c 00 05 1c 1a 00 06 1c 43 00 07 0c bb 00 08
+1c 0a 00 09 0c da 00 0a 1c eb 00 0b 1c 6c 00 0c
+1c 1a 00 0d 1c 43 00 0e 0c c3 00 0f 14 87 00 10
+```
+
+In such a case, the following command could be used to successfully match it.
+
+`text_sleuth.exe --length 2 --pattern phobos.txt --source inp\ --wildcard 2`
