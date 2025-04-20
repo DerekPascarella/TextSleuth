@@ -103,7 +103,7 @@ For example, one could imagine a scenario where the matched data from this examp
 00 1c 6c 00 1c 1a 00 1c 43 00 0c c3 00 14 87 00
 ```
 
-TextSleuth would fail to identify this byte array as a match unless the `--wildcard` option is used. See example command below.
+TextSleuth would fail to identify this byte array as a match unless the `--wildcard` option was used. See example command below.
 
 `text_sleuth.exe --length 2 --pattern phobos.txt --source inp\ --wildcard 1`
 
