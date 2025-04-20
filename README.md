@@ -1,7 +1,14 @@
 # TextSleuth
-TextSleuth is a brute-force search utility to identify non-standard text encoding formats. It supports multi-threading for enhanced performance, as well as a host of flexible options.
+TextSleuth is a brute-force search utility to identify non-standard text encoding formats.
 
-Its primary target users are hackers and reverse-engineers developing video game translation patches, especially those considered "retro" where custom text encoding formats were often used (rather than standards like ASCII or Shift-JIS).
+It supports multi-threading for enhanced performance, as well as a host of flexible options. It performs its scan by sliding a window over binary data and checking for repeating byte patterns based on user-defined encoding rules. It calculates byte strides between elements (accounting for wildcards), maps pattern IDs to actual byte sequences, and validates structural consistency. The algorithm is optimized by:
+
+- Precomputing offsets and pattern span.
+- Skipping chunks early if unique group counts don’t match.
+- Using multithreading with a shared queue for parallel file processing.
+- Minimizing disk I/O by reading entire files into memory once.
+
+TextSleuth's primary target users are hackers and reverse-engineers developing video game translation patches, especially those considered "retro" where custom text encoding formats were often used (rather than standards like ASCII or Shift-JIS).
 
 ## Current Version
 TextSleuth is currently at version [1.0](https://github.com/DerekPascarella/TextSleuth/releases/download/1.0/TextSleuth.v1.0.zip).
