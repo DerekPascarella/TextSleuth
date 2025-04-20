@@ -107,7 +107,7 @@ TextSleuth would fail to identify this byte array as a match unless the `--wildc
 
 `text_sleuth.exe --length 2 --pattern phobos.txt --source inp\ --wildcard 1`
 
-Another example could include two wildcard bytes, where `00 01` ends character one, `00 02` ends characters two, and so on.
+Another example could include two wildcard bytes, where `0x00 0x01` ends character one, `0x00 0x02` ends characters two, and so on.
 
 ```
 14 ed 00 01 1c 0a 00 02 1c 9c 00 03 1c 43 00 04
