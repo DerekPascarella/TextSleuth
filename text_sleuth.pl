@@ -9,9 +9,9 @@
 use strict;
 use MCE::Util;
 use File::Find;
-use Time::HiRes ('time');
-use List::MoreUtils ('uniq');
-use Getopt::Long (':config', 'no_ignore_case', 'no_auto_abbrev');
+use Time::HiRes ("time");
+use List::MoreUtils ("uniq");
+use Getopt::Long (":config", "no_ignore_case", "no_auto_abbrev");
 use threads;
 use threads::shared;
 use Thread::Queue;
@@ -51,12 +51,12 @@ if(scalar(@ARGV) == 0)
 
 # Define our parameters and arguments.
 GetOptions(
-	'l|length=s' => \$byte_length,
-	'p|pattern=s' => \$pattern_file,
-	's|source=s' => \$search_path,
-	'w|wildcard=s' => \$wildcard,
-	'i|ignore=s' => \$ignore,
-	'c|thread-count=s' => \$thread_count
+	"l|length=s" => \$byte_length,
+	"p|pattern=s" => \$pattern_file,
+	"s|source=s" => \$search_path,
+	"w|wildcard=s" => \$wildcard,
+	"i|ignore=s" => \$ignore,
+	"c|thread-count=s" => \$thread_count
 );
 
 # Identify leftover invalid parameters.
@@ -117,7 +117,7 @@ elsif($thread_count !~ /^\d+$/ || $thread_count < 1 || $thread_count > $cpu_coun
 print $header;
 
 # Store contents of search pattern file.
-open(my $pattern_fh, '<', $pattern_file) or die($!);
+open(my $pattern_fh, "<", $pattern_file) or die($!);
 my $pattern_line = <$pattern_fh>;
 close($pattern_fh);
 
@@ -206,9 +206,9 @@ print "\n> Scan complete! Found " . $match_count . " match" . ($match_count == 1
 	  " in " . $file_count . " file" . ($file_count == 1 ? "" : "s") . ".\n\n";
 printf "> Total scanned size: %d bytes (%.2f MB)\n\n", $total_size, $total_size / (1024 * 1024);
 printf "> Time elapsed: %d hour%s, %d minute%s, and %d second%s\n\n",
-	   $hours,   ($hours   == 1 ? '' : 's'),
-	   $minutes, ($minutes == 1 ? '' : 's'),
-	   $seconds, ($seconds == 1 ? '' : 's');
+	   $hours,   ($hours   == 1 ? "" : "s"),
+	   $minutes, ($minutes == 1 ? "" : "s"),
+	   $seconds, ($seconds == 1 ? "" : "s");
 
 # Thread worker for main program logic.
 sub worker
@@ -220,7 +220,7 @@ sub worker
 		next unless defined($size && $size >= $pattern_span);
 
 		# Read file content into memory as raw binary.
-		open(my $binary_fh, '<:raw', $file) or next;
+		open(my $binary_fh, "<:raw", $file) or next;
 		read($binary_fh, my $data, $size);
 		close($binary_fh);
 
@@ -257,7 +257,7 @@ sub worker
 			my $valid = 1;
 
 			# Iterate over each element in the pattern.
-			for my $j (0 .. $#pattern)
+			for(my $j = 0; $j <= $#pattern; $j ++)
 			{
 				# The current pattern ID (e.g., 'A', 'B').
 				my $id = $pattern[$j];
