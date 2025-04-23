@@ -64,7 +64,7 @@ Below is one such example, where `たアンドロイド『アーマロイド』�
 
 After identifying such a text chunk, the user has two choices for building their pattern file.
 
-If the target game's text is Japanese, one can create a text file with Shift-JIS encoding with the direct transcription, being sure to separate each character with an empty space. Note that UTF-8 or other encoding formats are not supported.
+If the target game's text is Japanese, one can create a text file with Shift-JIS encoding containing the direct transcription, being sure to separate each character with an empty space. Note that UTF-8 or other encoding formats are not supported.
 
 ![Screenshot](https://github.com/DerekPascarella/TextSleuth/blob/main/images/notepad_jp.png?raw=true)
 
