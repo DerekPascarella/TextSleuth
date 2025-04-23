@@ -16,7 +16,7 @@ TextSleuth is currently at version [1.1](https://github.com/DerekPascarella/Text
 ## Changelog
 - **Version 1.1 (2025-04-23)**
     - Added Shift-JIS encoding support for pattern file.
-    - Fixed incorrect description of auto-calculcated worker thread count.
+    - Fixed incorrect description of auto-calculated worker thread count.
 - **Version 1.0 (2025-04-19)**
     - Initial release.
 
