@@ -194,12 +194,7 @@ my $pattern_span = $byte_length + ($pattern_length - 1) * $stride;
 
 # Status message.
 print "> Worker threads: " . $thread_count;
-
-if(!$custom_thread_count)
-{
-	print " (default calculated based on number of logical CPU processors minus one)";
-}
-
+print " (default calculated based on number of logical CPU processors minus one)" if(!$custom_thread_count);
 print "\n\n";
 print "> Character byte length: " . $byte_length . "\n\n";
 print "> Wildcard byte count: " . $wildcard . "\n\n";
