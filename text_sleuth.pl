@@ -68,10 +68,7 @@ if(@unknown_options)
 }
 
 # Default wildcard count to zero.
-if(!defined $wildcard)
-{
-	$wildcard = 0;
-}
+$wildcard = 0 if(!defined $wildcard);
 
 # Set default thread count if none specified.
 my $custom_thread_count = 1;
