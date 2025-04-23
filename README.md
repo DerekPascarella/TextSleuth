@@ -11,7 +11,7 @@ It supports multi-threading for enhanced performance, as well as a host of flexi
 TextSleuth's primary target users are hackers and reverse-engineers developing video game translation patches, especially those considered "retro" where custom text encoding formats were often used (rather than standards like ASCII or Shift-JIS).
 
 ## Current Version
-TextSleuth is currently at version [1.0](https://github.com/DerekPascarella/TextSleuth/releases/download/1.0/TextSleuth.v1.0.zip).
+TextSleuth is currently at version [1.1](https://github.com/DerekPascarella/TextSleuth/releases/download/1.1/TextSleuth.v1.1.zip).
 
 ## Changelog
 - **Version 1.1 (2025-04-23)**
