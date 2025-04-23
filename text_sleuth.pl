@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# TextSleuth v1.0
+# TextSleuth v1.1
 # Written by Derek Pascarella (ateam)
 #
 # A brute-force search utility to identify non-standard text encoding formats.
@@ -23,7 +23,7 @@ Getopt::Long::Configure("pass_through");
 my $cpu_count = MCE::Util::get_ncpu();
 
 # Set version.
-my $version = "1.0";
+my $version = "1.1";
 
 # Define input parameters.
 my ($byte_length, $pattern_file, $search_path, $wildcard, $ignore, $thread_count);
@@ -117,7 +117,7 @@ elsif($thread_count !~ /^\d+$/ || $thread_count < 1 || $thread_count > $cpu_coun
 print $header;
 
 # Store contents of search pattern file.
-open(my $pattern_fh, "<", $pattern_file) or die($!);
+open(my $pattern_fh, "<:encoding(shiftjis)", $pattern_file) or die($!);
 my $pattern_line = <$pattern_fh>;
 close($pattern_fh);
 
@@ -130,6 +130,64 @@ my @pattern = split(/ /, $pattern_line);
 my $pattern_length = scalar(@pattern);
 my $unique_pattern_count = scalar(uniq(@pattern));
 
+# Flag to track whether the pattern line contains only ASCII characters
+# (i.e., 0x00-0x7F).
+my $is_ascii = 1;
+
+# Iterate over each character in the pattern line.
+foreach my $char (split(//, $pattern_line))
+{
+	# Check the Unicode code point of the character.
+	if(ord($char) > 127)
+	{
+		# If any character exceeds ASCII range, set flag to false.
+		$is_ascii = 0;
+		
+		# No need to continue checking once a non-ASCII character is found.
+		last;
+	}
+}
+
+# Variable to store the final pattern string for display purposes.
+my $display_pattern_line;
+
+# The pattern contains non-ASCII characters (e.g., Japanese text).
+if(!$is_ascii)
+{
+	# Hash to map each unique character to a pattern ID (A, B, C, etc).
+	my %char_to_id;
+	
+	# Start the pattern ID sequence at 'A'.
+	my $next_id = 'A';
+	
+	# Array to hold the mapped pattern sequence (e.g., A B C A).
+	my @display_pattern;
+
+	# Iterate over each non-whitespace character in the pattern line.
+	foreach my $char (grep { $_ !~ /\s/ } split(//, $pattern_line))
+	{
+		# If this character hasn't been assigned an ID yet, assign the next
+		# available letter.
+		if(!exists $char_to_id{$char})
+		{
+			$char_to_id{$char} = $next_id++;
+		}
+		
+		# Add the corresponding pattern ID (A, B, C, etc) to the display
+		# sequence.
+		push(@display_pattern, $char_to_id{$char});
+	}
+
+	# Join the pattern IDs with spaces for a clean display format
+	# (e.g., A B C A).
+	$display_pattern_line = join(" ", @display_pattern);
+}
+# For pure ASCII patterns, display the original pattern line directly.
+else
+{
+	$display_pattern_line = $pattern_line;
+}
+
 # Calculate how far apart each meaningful byte is in the chunk, considering wildcards.
 my $stride = $byte_length + $wildcard;
 my $pattern_span = $byte_length + ($pattern_length - 1) * $stride;
@@ -139,13 +197,13 @@ print "> Worker threads: " . $thread_count;
 
 if(!$custom_thread_count)
 {
-	print " (default calculated based on number of CPU cores minus one)";
+	print " (default calculated based on number of logical CPU processors minus one)";
 }
 
 print "\n\n";
 print "> Character byte length: " . $byte_length . "\n\n";
 print "> Wildcard byte count: " . $wildcard . "\n\n";
-print "> Search pattern: " . $pattern_line . "\n\n";
+printf "> %s search pattern: %s\n\n", ($is_ascii ? "Direct" : "Translated"), $display_pattern_line;
 
 # Initialize array to store all file paths that will be scanned.
 my @files;
