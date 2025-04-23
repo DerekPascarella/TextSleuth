@@ -14,6 +14,9 @@ TextSleuth's primary target users are hackers and reverse-engineers developing v
 TextSleuth is currently at version [1.0](https://github.com/DerekPascarella/TextSleuth/releases/download/1.0/TextSleuth.v1.0.zip).
 
 ## Changelog
+- **Version 1.1 (2025-04-23)**
+    - Added Shift-JIS encoding support for pattern file.
+    - Fixed incorrect description of auto-calculcated worker thread count.
 - **Version 1.0 (2025-04-19)**
     - Initial release.
 
@@ -59,7 +62,13 @@ Below is one such example, where `たアンドロイド『アーマロイド』�
 
 ![Screenshot](https://github.com/DerekPascarella/TextSleuth/blob/main/images/in-game_screenshot.png?raw=true)
 
-After identifying such a text chunk, the user must transcribe a pattern using any ASCII characters of their choice. For example, one can assign a given Japanese character to the letter `A`, or to the number `1`.
+After identifying such a text chunk, the user has two choices for building their pattern file.
+
+If the target game's text is Japanese, one can create a text file with Shift-JIS encoding with the direct transcription, being sure to separate each character with an empty space. Note that UTF-8 or other encoding formats are not supported.
+
+![Screenshot](https://github.com/DerekPascarella/TextSleuth/blob/main/images/notepad_jp.png?raw=true)
+
+Alternatively, users can transcribe a pattern using any ASCII characters of their choice. For example, one can assign a given Japanese character to the letter `A`, or to the number `1`.
 
 Below is an example of translating the string of text into a valid pattern.
 
