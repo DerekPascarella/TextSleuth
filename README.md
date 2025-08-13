@@ -78,7 +78,7 @@ Once the pattern has been identified, it's then to be written to a text file.
 
 ![Screenshot](https://github.com/DerekPascarella/TextSleuth/blob/main/images/notepad.png?raw=true)
 
-With this pattern saved as `phobos.txt`, and the extracted game data stored in a folder named `inp`, it's time to construct the first search command.
+With either the pattern or the direct Japanese text saved as `phobos.txt`, and the extracted game data stored in a folder named `inp`, it's time to construct the first search command.
 
 For the initial attempt, the user assumes a two-byte format with no wildcards in between.
 
