@@ -11,9 +11,17 @@ It supports multi-threading for enhanced performance, as well as a host of flexi
 TextSleuth's primary target users are hackers and reverse-engineers developing video game translation patches, especially those considered "retro" where custom text encoding formats were often used (rather than standards like ASCII or Shift-JIS).
 
 ## Current Version
-TextSleuth is currently at version [1.1](https://github.com/DerekPascarella/TextSleuth/releases/download/1.1/TextSleuth.v1.1.zip).
+TextSleuth is currently at version [1.2](https://github.com/DerekPascarella/TextSleuth/releases/download/1.2/TextSleuth.v1.2.zip).
 
 ## Changelog
+- **Version 1.2 (2026-05-20)**
+    - Replaced byte-by-byte search loop with a compiled regex using backreferences for substantially faster matching.
+    - Replaced Perl ithreads with MCE for worker parallelism.
+    - Serialized worker STDOUT so per-file match output no longer interleaves on the terminal.
+    - Expanded input validation to report each missing required parameter individually and to distinguish nonexistent paths from unreadable ones.
+    - Fixed regex pattern that failed to strip trailing whitespace from the pattern file.
+    - Fixed conditional that prevented files smaller than the search pattern from being skipped.
+    - Enforced character byte length to be greater than zero.
 - **Version 1.1 (2025-04-23)**
     - Added Shift-JIS encoding support for pattern file.
     - Fixed incorrect description of auto-calculated worker thread count.
