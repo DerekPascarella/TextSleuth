@@ -31,7 +31,7 @@ TextSleuth is currently at version [1.2](https://github.com/DerekPascarella/Text
 ## Benchmarks
 With support for multi-threading, TextSleuth can be scaled as desired. By default, it will consume one fewer thread than the total logical processor count of the host computer on which it's executed.
 
-On an AMD Ryzen 5 4600H running at 3.0 GHz with six cores and 12 logical processors (threads), where TextSleuth is consuming 11 threads, approximately 20 MB of data can be searched per minute.
+On an AMD Ryzen 5 4600H running at 3.0 GHz with six cores and 12 logical processors (threads), where TextSleuth is consuming 11 threads, approximately 40 MB of data can be searched per minute.
 
 ## Usage
 TextSleuth is a command-line utility to be invoked as follows.
