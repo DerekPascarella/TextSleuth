@@ -224,9 +224,7 @@ my $pattern_span = $byte_length + ($pattern_length - 1) * $stride;
 # Build a compiled regex that encodes the pattern's structural constraints.
 # Each unique pattern ID becomes a capturing group of $byte_length bytes. Every
 # subsequent occurrence of that ID becomes a numbered backreference (\g{N}).
-# Wildcards are emitted as inline ".{$wildcard}" separators. The result is a
-# single regex that the engine can scan with internal optimizations far faster
-# than a Perl-level sliding window.
+# Wildcards are emitted as inline ".{$wildcard}" separators.
 my %id_to_group;
 my $next_group = 1;
 my @rx_parts;
@@ -296,14 +294,11 @@ my $file_count  = 0;
 my $start_time  = time();
 
 # Mutex to serialize STDOUT writes across workers so per-file output stays
-# cohesive (the previous ithreads version had no STDOUT lock, which allowed
-# match output from different files to interleave on the terminal).
+# cohesive.
 my $stdout_mutex = MCE::Mutex->new;
 
 # Configure the MCE worker pool. Each worker processes one file per invocation
-# (chunk_size of 1). MCE forks workers from the parent process, avoiding the
-# per-thread interpreter clone overhead of Perl ithreads. The gather callback
-# accumulates each worker's tallies into the shared counters as they arrive.
+# (chunk_size of 1).
 MCE::Loop->init(
 	max_workers => $thread_count,
 	chunk_size  => 1,
@@ -384,8 +379,6 @@ sub worker
 		pos($data) = $i + 1;
 
 		# Read the captured byte sequences (one per unique pattern ID).
-		# Using @-/@+ avoids $1..$9, which can't address groups numbered 10+
-		# in a generic way.
 		my @captures = map { substr($data, $-[$_], $+[$_] - $-[$_]) } 1 .. $unique_pattern_count;
 
 		# The regex's backreferences already enforced every equality
