@@ -9,8 +9,9 @@
 use strict;
 use MCE::Util;
 use MCE::Loop;
-use MCE::Mutex;
 use File::Find;
+use MCE::Mutex;
+use MCE::Mutex::Channel;
 use Time::HiRes     ("time");
 use List::MoreUtils ("uniq");
 use Getopt::Long    (":config", "no_ignore_case", "no_auto_abbrev");
