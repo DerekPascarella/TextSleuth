@@ -4,16 +4,36 @@ TextSleuth is a brute-force search utility to identify non-standard text encodin
 It supports multi-threading for enhanced performance, as well as a host of flexible options. It performs its scan by sliding a window over binary data and checking for repeating byte patterns based on user-defined encoding rules. It calculates byte strides between elements (accounting for wildcards), maps pattern IDs to actual byte sequences, and validates structural consistency. The algorithm is optimized by:
 
 - Precomputing offsets and pattern span.
-- Skipping chunks early if unique group counts don’t match.
-- Using multithreading with a shared queue for parallel file processing.
+- Rejecting each candidate offset at the first byte group that breaks the pattern.
+- Using multithreading, with each thread pulling the next file from a shared list.
 - Minimizing disk I/O by reading entire files into memory once.
 
 TextSleuth's primary target users are hackers and reverse-engineers developing video game translation patches, especially those considered "retro" where custom text encoding formats were often used (rather than standards like ASCII or Shift-JIS).
 
 ## Current Version
-TextSleuth is currently at version [1.2](https://github.com/DerekPascarella/TextSleuth/releases/download/1.2/TextSleuth.v1.2.zip).
+TextSleuth is currently at version 2.0.
+
+| Platform | Download |
+|---|---|
+| Windows (64-bit) | [text_sleuth-v2.0-win-x64.zip](https://github.com/DerekPascarella/TextSleuth/releases/download/2.0/text_sleuth-v2.0-win-x64.zip) |
+| Windows (32-bit) | [text_sleuth-v2.0-win-x86.zip](https://github.com/DerekPascarella/TextSleuth/releases/download/2.0/text_sleuth-v2.0-win-x86.zip) |
+| Linux (x64) | [text_sleuth-v2.0-linux-x64.tar.gz](https://github.com/DerekPascarella/TextSleuth/releases/download/2.0/text_sleuth-v2.0-linux-x64.tar.gz) |
+| macOS (Apple Silicon) | [text_sleuth-v2.0-macos-arm64.tar.gz](https://github.com/DerekPascarella/TextSleuth/releases/download/2.0/text_sleuth-v2.0-macos-arm64.tar.gz) |
+| macOS (Intel) | [text_sleuth-v2.0-macos-x64.tar.gz](https://github.com/DerekPascarella/TextSleuth/releases/download/2.0/text_sleuth-v2.0-macos-x64.tar.gz) |
 
 ## Changelog
+- **Version 2.0 (2026-10-22)**
+    - Rewrote TextSleuth in C++. Each release is now a single small executable, cutting the download from about 12 MB to under 1 MB. It also starts faster and should trigger fewer antivirus false positives.
+    - Added builds for Linux (x64) and macOS (Intel and Apple Silicon).
+    - Fixed a hang at "Initiating scan process" on some Windows systems.
+    - Replaced regex-based matching with direct byte comparison for faster scans.
+    - Reduced memory usage when a scan produces a very large number of matches.
+    - Fixed files with non-ASCII names on Windows not being opened or displayed correctly.
+    - Fixed leading zeros in `--length` and `--wildcard` values (e.g., `02`) causing an error.
+    - A file too large to fit in memory is now skipped instead of stopping the scan.
+    - An empty pattern file now produces no matches instead of matching at every offset.
+    - File extensions passed to `--ignore` are now matched literally instead of as regular expressions.
+    - Command-line options and output format are unchanged.
 - **Version 1.2 (2026-05-20)**
     - Replaced byte-by-byte search loop with a compiled regex using backreferences for substantially faster matching.
     - Replaced Perl ithreads with MCE for worker parallelism.
@@ -31,7 +51,7 @@ TextSleuth is currently at version [1.2](https://github.com/DerekPascarella/Text
 ## Benchmarks
 With support for multi-threading, TextSleuth can be scaled as desired. By default, it will consume one fewer thread than the total logical processor count of the host computer on which it's executed.
 
-On an AMD Ryzen 5 4600H running at 3.0 GHz with six cores and 12 logical processors (threads), where TextSleuth is consuming 11 threads, approximately 40 MB of data can be searched per minute.
+On an AMD Ryzen 5 4600H running at 3.0 GHz with six cores and 12 logical processors (threads), where TextSleuth is consuming 11 threads, approximately 8 GB of data can be searched per minute.
 
 ## Usage
 TextSleuth is a command-line utility to be invoked as follows.
@@ -44,6 +64,11 @@ text_sleuth --parameter <value>
 Short option format:
 ```
 text_sleuth -p <value>
+```
+
+On Linux and macOS, run it as `./text_sleuth` and use forward slashes in paths (e.g., `--source inp/`). On macOS, if the system blocks the program because it was downloaded from the internet, run the following command once to allow it.
+```
+xattr -d com.apple.quarantine text_sleuth
 ```
 
 Below are a list of all available options, both required and optional.
